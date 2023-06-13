@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/desert3agle/argo-test.git
     targetRevision: HEAD
-    path: ../manifests
+    path: /manifests/wordpress
   destination: 
     server: https://kubernetes.default.svc
     namespace: assgn
