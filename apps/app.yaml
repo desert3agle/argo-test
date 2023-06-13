@@ -5,10 +5,14 @@ metadata:
   namespace: argocd
 spec:
   project: default
+
   source:
+    directory:
+      recurse: true
+    path: manifests/wordpress
     repoURL: https://github.com/desert3agle/argo-test.git
     targetRevision: HEAD
-    path: /manifests/wordpress
+
   destination: 
     server: https://kubernetes.default.svc
     namespace: assgn
