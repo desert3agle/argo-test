@@ -1,11 +1,10 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: myapp-argo-application
+  name: assgn-wordpress
   namespace: argocd
 spec:
   project: default
-
   source:
     repoURL: https://github.com/desert3agle/argo-test.git
     targetRevision: HEAD
@@ -13,11 +12,9 @@ spec:
   destination: 
     server: https://kubernetes.default.svc
     namespace: assgn
-
   syncPolicy:
-    syncOptions:
-    - CreateNamespace=true
-
     automated:
       selfHeal: true
       prune: true
+    syncOptions:
+    - CreateNamespace=true
