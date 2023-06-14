@@ -18,7 +18,7 @@ spec:
       name: 'assgn-wordpress-{{env}}'
       namespace: argocd
     spec:
-      project: '{{project}}'
+      project: default
 
       source:
         directory:
