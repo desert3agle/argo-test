@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: mysql-helm-genrator
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - env: prod
+          - env: dev
+  template:
+    metadata:
+      name: 'mysql-{{env}}'
+      namespace: argocd
+    spec:
+      project: default
+      source:
+        repoURL: 'https://charts.bitnami.com/bitnami'
+        targetRevision: 9.7.2
+        helm:
+          valueFiles:
+            - values.yaml
+          parameters:
+            - name: metrics.enabled
+              value: 'true'
+        chart: mysql
+      destination:
+        server: 'https://kubernetes.default.svc'
+        namespace: 'database-{{env}}'
+      syncPolicy:
+        automated:
+          selfHeal: true
+          prune: true
+        syncOptions:
+          - CreateNamespace=true
+
+# can configure values, version with elements as well. but if there are a lot of changes
+# we can keep seprate helm file as well. there no extra manifest, just a superapp is needed to watch
+# keeping seprate is better imo, changin a lot of values in one file will be a mess

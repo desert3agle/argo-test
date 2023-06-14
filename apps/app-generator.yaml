@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: app-genrator-or-superapp
+  name: app-genrator
   namespace: argocd
 spec:
   generators:
@@ -9,17 +9,14 @@ spec:
         elements:
           - env: prod
             dirname: wordpress
-            project: assgn
           - env: dev
             dirname: wordpress
-            project: assgn
   template:
     metadata:
       name: 'assgn-wordpress-{{env}}'
       namespace: argocd
     spec:
       project: default
-
       source:
         directory:
           recurse: true
